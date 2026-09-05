@@ -1,40 +1,44 @@
 # 🤝 Volunteer Matcher
 
-Volunteer Matcher is a web-based application designed to connect volunteers with suitable volunteering opportunities.
+## 📌 About the Project
 
-The project is built using **Java and Spring Boot** and is designed to use **Neo4j** for data management. The application follows a modular backend architecture and uses **Thymeleaf** for rendering web pages.
+**Volunteer Matcher** is a web-based application developed using **Java and Spring Boot** to help connect volunteers with suitable volunteering opportunities.
 
-The main goal of this project is to provide a platform where volunteers can be connected with organizations or NGOs based on their skills, interests, and volunteering requirements.
+The project is designed around the idea of matching volunteers with organizations or NGOs based on relevant information such as skills, interests, availability, and volunteering requirements.
 
----
-
-## 📌 Project Overview
-
-Finding the right volunteering opportunity can be difficult because volunteers may not know which organizations need their specific skills, while NGOs may struggle to find suitable volunteers.
-
-The **Volunteer Matcher** project aims to solve this problem by providing a centralized platform where:
-
-- Volunteers can provide their information and skills.
-- NGOs or organizations can provide volunteering opportunities.
-- Volunteer and opportunity information can be stored and managed.
-- Suitable volunteers can be matched with relevant opportunities.
-- Users can interact with the application through a web interface.
-
-The project is developed as a **Spring Boot web application** with a database layer based on **Neo4j**.
+The application uses **Neo4j**, a graph database, to represent and manage relationships between different entities. **Thymeleaf** is used for creating the web interface.
 
 ---
 
-## 🎯 Objectives
+## 🎯 Problem Statement
 
-The main objectives of the project are:
+Finding suitable volunteering opportunities can be difficult for volunteers because they may not know which organizations require their specific skills or interests.
 
-1. To create a platform for managing volunteers.
-2. To provide a way for organizations/NGOs to manage volunteering opportunities.
-3. To store volunteer and organization information efficiently.
-4. To match volunteers with suitable opportunities.
-5. To provide a simple and user-friendly web interface.
-6. To use a graph database for representing relationships between volunteers, skills, NGOs, and opportunities.
-7. To develop the application using a maintainable and scalable backend architecture.
+At the same time, NGOs and organizations may find it difficult to identify volunteers who are suitable for their requirements.
+
+The Volunteer Matcher project aims to provide a centralized platform that can help connect volunteers and organizations more effectively.
+
+### The main problems addressed are:
+
+- Difficulty in finding suitable volunteering opportunities.
+- Difficulty for NGOs in finding volunteers with required skills.
+- Managing volunteer and organization information.
+- Establishing relationships between volunteers, skills, and opportunities.
+- Providing a simple web-based platform for managing this information.
+
+---
+
+## 💡 Proposed Solution
+
+Volunteer Matcher provides a platform where volunteer and organization information can be maintained in a structured way.
+
+The application is designed to allow:
+
+- Volunteers to provide their details and skills.
+- Organizations/NGOs to provide their information.
+- Volunteering opportunities to be associated with required skills.
+- Relationships between volunteers, skills, NGOs, and opportunities to be represented using Neo4j.
+- Suitable volunteer-opportunity relationships to be identified using matching logic.
 
 ---
 
@@ -42,167 +46,235 @@ The main objectives of the project are:
 
 ### 👤 Volunteer Management
 
-The system can be designed to maintain information about volunteers such as:
+The application is designed to manage volunteer-related information such as:
 
-- Name
+- Volunteer name
 - Contact information
 - Skills
 - Interests
 - Availability
 - Location
-- Previous volunteering experience
+- Volunteering experience
 
-This information can be used to identify suitable volunteering opportunities.
+This information can be used during the matching process.
 
 ---
 
 ### 🏢 NGO / Organization Management
 
-Organizations can manage their information and volunteering requirements.
+Organizations can be represented in the system along with their volunteering requirements.
 
-An organization can provide:
+Organization information may include:
 
 - Organization name
 - Description
 - Contact information
 - Location
 - Required skills
-- Available volunteering opportunities
+- Volunteering opportunities
 
 ---
 
+### 🎯 Skill-Based Matching
 
-
-🔗 Relationship-Based Data Management
-
-The project uses Neo4j, a graph database.
-
-A graph database is useful for this application because the project contains many relationships.
+A major objective of the project is to match volunteers with opportunities based on their skills.
 
 For example:
 
+```text
+Volunteer Skills
+        |
+        |---- Java
+        |---- Web Development
+        |---- Database
+        |
+        ↓
+   Matching Process
+        |
+        ↓
+Volunteering Opportunity
+        |
+        |---- Java
+        |---- Web Development
+```
+
+If the volunteer possesses skills required by an opportunity, the volunteer can be considered a suitable match.
+
+---
+
+### 🔗 Relationship-Based Data Management
+
+The project uses **Neo4j**, which is a graph database.
+
+A graph database is useful for this type of application because the project contains several relationships between entities.
+
+For example:
+
+```text
 Volunteer
-   |
-   | HAS_SKILL
-   ↓
- Java
-   |
-   | REQUIRED_FOR
-   ↓
+    |
+    | HAS_SKILL
+    ↓
+  Skill
+    |
+    | REQUIRED_FOR
+    ↓
 Opportunity
-   |
-   | POSTED_BY
-   ↓
-NGO
+    |
+    | POSTED_BY
+    ↓
+   NGO
+```
 
-This type of relationship-oriented data can be represented naturally using a graph database.
+These relationships can be represented naturally using a graph database.
 
-🌐 Web Interface
+---
 
-The application uses Thymeleaf for server-side HTML rendering.
+## 🗄️ Why Neo4j?
 
-The web layer can provide pages for:
+Neo4j is a graph database that stores information using:
 
-Home
-Volunteer information
-NGO information
-Opportunities
-Matching results
-Forms for submitting information
-🏗️ Technology Stack
-Technology	Purpose
-Java 17	Programming language
-Spring Boot	Application framework
-Spring MVC / Web MVC	Web application development
-Spring Data Neo4j	Database integration
-Neo4j	Graph database
-Thymeleaf	Server-side HTML rendering
-Maven	Build and dependency management
-HTML	Frontend structure
-Git	Version control
-GitHub	Source code hosting
-🧩 Architecture
+- Nodes
+- Relationships
+- Properties
 
-The application follows a layered architecture.
+Volunteer Matcher contains relationship-oriented data.
 
-                    ┌─────────────────────┐
-                    │      User / Browser │
-                    └──────────┬──────────┘
+For example:
+
+```text
+Volunteer → HAS_SKILL → Skill
+
+NGO → POSTS → Opportunity
+
+Opportunity → REQUIRES → Skill
+
+Volunteer → MATCHED_WITH → Opportunity
+```
+
+This graph-based approach makes it convenient to model connections between volunteers, skills, NGOs, and opportunities.
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+|------------|---------|
+| **Java 17** | Backend programming |
+| **Spring Boot** | Application development framework |
+| **Spring MVC** | Web application development |
+| **Spring Data Neo4j** | Integration with Neo4j |
+| **Neo4j** | Graph database |
+| **Thymeleaf** | Server-side HTML rendering |
+| **Maven** | Dependency and build management |
+| **HTML** | Web page structure |
+| **Git** | Version control |
+| **GitHub** | Source code repository |
+
+---
+
+## 🏗️ Project Architecture
+
+The project follows a layered application architecture.
+
+```text
+                    ┌──────────────────────┐
+                    │    User / Browser    │
+                    └──────────┬───────────┘
                                │
                                ↓
-                    ┌─────────────────────┐
-                    │    Web / Controller │
-                    │        Layer        │
-                    └──────────┬──────────┘
+                    ┌──────────────────────┐
+                    │   Controller Layer   │
+                    │   Handles Requests   │
+                    └──────────┬───────────┘
                                │
                                ↓
-                    ┌─────────────────────┐
-                    │    Service Layer    │
-                    │ Business Logic      │
-                    └──────────┬──────────┘
+                    ┌──────────────────────┐
+                    │    Service Layer     │
+                    │   Business Logic     │
+                    └──────────┬───────────┘
                                │
                                ↓
-                    ┌─────────────────────┐
-                    │   Repository Layer  │
-                    │ Spring Data Neo4j   │
-                    └──────────┬──────────┘
+                    ┌──────────────────────┐
+                    │  Repository Layer    │
+                    │ Spring Data Neo4j    │
+                    └──────────┬───────────┘
                                │
                                ↓
-                    ┌─────────────────────┐
-                    │       Neo4j         │
-                    │   Graph Database    │
-                    └─────────────────────┘
-Controller Layer
+                    ┌──────────────────────┐
+                    │       Neo4j          │
+                    │   Graph Database     │
+                    └──────────────────────┘
+```
 
-The controller layer handles requests coming from the web interface.
+### Controller Layer
+
+The controller layer is responsible for handling requests from the web interface.
 
 Responsibilities include:
 
-Receiving user requests
-Processing form submissions
-Calling appropriate services
-Returning HTML pages
-Service Layer
+- Receiving user requests.
+- Processing form submissions.
+- Calling service-layer methods.
+- Returning appropriate web pages.
+
+---
+
+### Service Layer
 
 The service layer contains the application's business logic.
 
 Responsibilities include:
 
-Processing volunteer information
-Processing NGO information
-Performing matching operations
-Applying business rules
-Communicating between controllers and repositories
-Repository Layer
+- Processing volunteer information.
+- Processing organization information.
+- Implementing matching logic.
+- Applying application-specific business rules.
+- Communicating with repositories.
 
-The repository layer handles communication with Neo4j.
+---
 
-Spring Data Neo4j can be used to:
+### Repository Layer
 
-Store entities
-Retrieve entities
-Update data
-Delete data
-Query relationships
-Database Layer
+The repository layer is responsible for communication with the Neo4j database.
 
-Neo4j stores the application's data as:
+It can be used to:
 
+- Save data.
+- Retrieve data.
+- Update data.
+- Delete data.
+- Query relationships.
+
+---
+
+### Database Layer
+
+Neo4j is used as the graph database.
+
+Data can be represented using:
+
+```text
 Nodes
+   +
 Relationships
+   +
 Properties
+```
 
-This makes it suitable for representing connections between volunteers, skills, organizations, and opportunities.
+This structure is suitable for representing relationships between volunteers, skills, organizations, and opportunities.
 
-📂 Project Structure
+---
 
-The project follows the standard Spring Boot Maven structure.
+## 📂 Project Structure
 
+The project follows the standard Spring Boot Maven project structure.
+
+```text
 volunteer-matcher/
 │
 ├── .mvn/
 │   └── wrapper/
-│       └── maven-wrapper.properties
 │
 ├── src/
 │   │
@@ -212,8 +284,6 @@ volunteer-matcher/
 │   │   │   └── com/
 │   │   │       └── volunteermatch/
 │   │   │           └── volunteermatcher/
-│   │   │               │
-│   │   │               └── VolunteerMatcherApplication.java
 │   │   │
 │   │   └── resources/
 │   │       │
@@ -225,11 +295,6 @@ volunteer-matcher/
 │   │
 │   └── test/
 │       └── java/
-│           └── com/
-│               └── volunteermatch/
-│                   └── volunteermatcher/
-│                       │
-│                       └── VolunteerMatcherApplicationTests.java
 │
 ├── .gitignore
 ├── .gitattributes
@@ -238,33 +303,58 @@ volunteer-matcher/
 ├── mvnw.cmd
 ├── pom.xml
 └── README.md
-🔄 Application Workflow
+```
 
-The expected application workflow is:
+---
 
-User opens application
-        ↓
-Home Page
-        ↓
-Select Volunteer / NGO functionality
-        ↓
-Enter required information
-        ↓
-Application processes the request
-        ↓
-Service layer applies business logic
-        ↓
-Repository communicates with Neo4j
-        ↓
-Data is stored / retrieved
-        ↓
-Matching logic identifies suitable opportunities
-        ↓
-Results are displayed to the user
-🧠 Example Matching Scenario
+## 🔄 Application Workflow
 
-Consider a volunteer who has the following skills:
+The overall workflow of the application can be represented as:
 
+```text
+        User
+         |
+         ↓
+    Open Application
+         |
+         ↓
+      Home Page
+         |
+         ↓
+ Select Required Functionality
+         |
+         ↓
+Enter Volunteer / NGO Information
+         |
+         ↓
+   Application Logic
+         |
+         ↓
+     Service Layer
+         |
+         ↓
+   Repository Layer
+         |
+         ↓
+       Neo4j
+         |
+         ↓
+ Retrieve / Store Information
+         |
+         ↓
+ Matching Process
+         |
+         ↓
+ Display Suitable Results
+```
+
+---
+
+## 🧠 Example Matching Scenario
+
+Consider a volunteer with the following skills:
+
+```text
 Volunteer:
 John
 
@@ -272,297 +362,380 @@ Skills:
 - Java
 - Web Development
 - Database
+```
 
-An NGO provides an opportunity requiring:
+Suppose an NGO has an opportunity:
 
+```text
 Opportunity:
 Website Development
 
 Required Skills:
 - Java
 - Web Development
+```
 
-The system can compare the volunteer's skills with the required skills.
+The matching process can compare the volunteer's skills with the skills required for the opportunity.
 
-Volunteer Skills
-       │
-       ├── Java ───────────────┐
-       │                       │
-       ├── Web Development ────┼── Match
-       │                       │
-       └── Database            │
-                               ↓
+```text
+                Volunteer
+                    |
+                    ↓
+              Volunteer Skills
+                    |
+        ┌───────────┼───────────┐
+        ↓           ↓           ↓
+       Java    Web Development  Database
+        |           |
+        |           |
+        └───── Match ───────────┐
+                                ↓
                          NGO Opportunity
+                                |
+                                ↓
+                       Website Development
+```
 
-Since the volunteer has the required skills, the opportunity can be considered a suitable match.
+Since the volunteer has the required skills, the opportunity can be considered a potential match.
 
-🗄️ Why Neo4j?
+---
 
-Neo4j is a graph database that is particularly useful when an application contains many relationships between entities.
+## ⚙️ Prerequisites
 
-Volunteer Matcher naturally contains relationships such as:
+Before running the project, make sure the following are available:
 
-Volunteer → HAS_SKILL → Skill
-
-NGO → POSTS → Opportunity
-
-Opportunity → REQUIRES → Skill
-
-Volunteer → MATCHED_WITH → Opportunity
-
-A graph database allows these relationships to be represented directly.
-
-This can make relationship-based queries easier to model compared with representing everything as unrelated tables.
-
-⚙️ Prerequisites
-
-Before running the project, install:
-
-Java
+### Java
 
 Java 17 or later.
 
-Verify the installation:
+Check the installed Java version:
 
+```bash
 java -version
-Maven
+```
+
+### Neo4j
+
+A Neo4j database should be available when database functionality is enabled.
+
+You may need:
+
+- Neo4j database
+- Database URI
+- Username
+- Password
+
+### Maven
 
 The project includes the Maven Wrapper, so Maven does not necessarily need to be installed globally.
 
-You can use:
+For Windows, the Maven Wrapper can be used with:
 
+```bash
 mvnw.cmd
+```
 
-on Windows.
+---
 
-Neo4j
+## 🚀 Installation and Setup
 
-Install and run a Neo4j database if database functionality has been configured.
+### 1. Clone the Repository
 
-You will need:
-
-Neo4j database
-Database URI
-Username
-Password
-🚀 Getting Started
-1. Clone the Repository
+```bash
 git clone https://github.com/Thalanki-Jahnavi/Volunteer-matcher.git
-2. Navigate to the Project
+```
+
+### 2. Navigate to the Project
+
+```bash
 cd Volunteer-matcher
-3. Configure the Application
+```
+
+### 3. Configure the Application
 
 Application configuration is located at:
 
+```text
 src/main/resources/application.properties
+```
 
-Configure the required Neo4j connection details when database functionality is enabled.
+Configure the required database properties according to your Neo4j setup.
 
 Example:
 
+```properties
 spring.application.name=volunteer-matcher
 
-# Configure Neo4j connection here
-# spring.neo4j.uri=...
-# spring.neo4j.authentication.username=...
-# spring.neo4j.authentication.password=...
+# Neo4j configuration
+# spring.neo4j.uri=YOUR_NEO4J_URI
+# spring.neo4j.authentication.username=YOUR_USERNAME
+# spring.neo4j.authentication.password=YOUR_PASSWORD
+```
 
-Do not commit real database passwords or other sensitive credentials to GitHub.
+> ⚠️ Never upload real database passwords, API keys, or other sensitive credentials to GitHub.
 
-4. Run the Application
+---
 
-On Windows:
+## ▶️ Running the Application
 
+On Windows, use:
+
+```bash
 mvnw.cmd spring-boot:run
+```
 
-Or, if Maven is installed:
+If Maven is installed globally, you can also use:
 
+```bash
 mvn spring-boot:run
-5. Open the Application
+```
 
-Once the Spring Boot application starts, open:
+After the application starts, open:
 
+```text
 http://localhost:8080
-🧪 Testing
+```
 
-The project contains a Spring Boot test class.
+in your web browser.
+
+---
+
+## 🧪 Testing
+
+The project contains test code for the Spring Boot application.
 
 Run the tests using:
 
+```bash
 mvn test
+```
 
 Or on Windows:
 
+```bash
 mvnw.cmd test
+```
 
-The tests help verify that the Spring application context can start correctly.
+---
 
-📦 Building the Project
+## 📦 Building the Project
 
-To create a build:
+To build the application:
 
+```bash
 mvn clean package
+```
 
-Or using the Maven Wrapper:
+Or on Windows:
 
+```bash
 mvnw.cmd clean package
+```
 
-The generated build files will be placed inside:
+The generated build files are placed inside:
 
+```text
 target/
+```
 
-The target directory is ignored by Git.
+---
 
-🔐 Security Considerations
+## 🔐 Security
 
-Database credentials and other sensitive information should not be stored directly in the source code.
+Sensitive information should not be committed to the GitHub repository.
 
-For example, avoid committing:
+Do not commit:
 
-spring.neo4j.authentication.password=myPassword
+- Database passwords
+- API keys
+- Access tokens
+- Private credentials
+- Environment-specific secrets
 
-Instead, use environment variables or an appropriate secrets-management mechanism.
+Use environment variables or another secure configuration method for sensitive information.
 
-Also avoid committing:
+---
 
-API keys
-Database passwords
-Access tokens
-Private credentials
-Environment-specific secrets
-🔮 Future Enhancements
+## 🚧 Current Project Status
 
-The project can be extended with several features.
+**Status: Under Development 🚀**
 
-Authentication and Authorization
+The project is being developed incrementally.
 
-Implement:
+The current application provides the foundation for building a volunteer matching platform using Spring Boot, Neo4j, and Thymeleaf.
 
-Volunteer registration
-NGO registration
-Login
-Logout
-Role-based access
+Additional application functionality can be added as development continues.
+
+---
+
+## 🔮 Future Enhancements
+
+The following features can be added in future versions.
+
+### 🔐 Authentication and Authorization
+
+- Volunteer registration
+- NGO registration
+- Login and logout
+- Role-based access control
+- Admin functionality
 
 Possible roles:
 
+```text
 ADMIN
 VOLUNTEER
 NGO
-Advanced Matching
+```
 
-The matching system can be improved using:
+---
 
-Skill matching
-Location matching
-Availability matching
-Interest matching
-Experience matching
-Opportunity preferences
+### 🎯 Advanced Matching
 
-A matching score could be calculated to rank opportunities.
+The matching system can be enhanced using:
+
+- Skill matching
+- Location matching
+- Availability matching
+- Interest matching
+- Experience matching
+- Opportunity preferences
+
+A matching score could also be calculated.
 
 Example:
 
-Volunteer
-   ↓
-Skill Match       → 40%
-Location Match    → 20%
-Interest Match    → 20%
-Availability      → 20%
-                   ─────
-Total Match Score → 100%
-Search and Filtering
+```text
+Skill Match        → 40%
+Location Match     → 20%
+Interest Match     → 20%
+Availability Match → 20%
+                     ----
+Total Match Score  → 100%
+```
 
-Add functionality to search opportunities based on:
+---
 
-Skill
-Location
-Category
-Date
-Availability
-Organization
-Notifications
+### 🔍 Search and Filtering
 
-The system could notify volunteers when:
+Users could search and filter opportunities based on:
 
-A suitable opportunity is available.
-An NGO accepts their application.
-An opportunity is updated.
-A volunteering event is approaching.
-Dashboard
+- Skills
+- Location
+- Category
+- Availability
+- Date
+- Organization
 
-Separate dashboards could be created for:
+---
 
-Volunteer
+### 📩 Notifications
+
+The application could provide notifications when:
+
+- A suitable volunteering opportunity is available.
+- An NGO accepts a volunteer.
+- An opportunity is updated.
+- A volunteering event is approaching.
+
+---
+
+### 📊 Dashboards
+
+#### Volunteer Dashboard
+
+```text
 My Profile
 My Skills
 Recommended Opportunities
 Applications
 Matched Opportunities
-NGO
+```
+
+#### NGO Dashboard
+
+```text
 Organization Profile
 Create Opportunity
 Manage Opportunities
 View Volunteers
 Applications
-Admin
+```
+
+#### Admin Dashboard
+
+```text
 Users
 NGOs
 Opportunities
 Reports
 System Management
-📈 Scalability
+```
 
-The application can be extended as the number of users and organizations increases.
+---
 
-Potential improvements include:
+## 📈 Possible Improvements
 
-REST APIs
-Pagination
-Caching
-Database optimization
-Authentication
-Cloud deployment
-Containerization using Docker
-Automated CI/CD using GitHub Actions
-🛠️ Development Tools
+The application can be further improved using:
 
-The project can be developed using IDEs such as:
+- REST APIs
+- Authentication
+- Pagination
+- Caching
+- Database optimization
+- Docker
+- Cloud deployment
+- CI/CD using GitHub Actions
+- Improved user interface
+- Advanced matching algorithms
 
-IntelliJ IDEA
-Eclipse
-Visual Studio Code
+---
 
-Git and GitHub are used for version control and source code management.
-
-📚 Learning Outcomes
+## 📚 Learning Outcomes
 
 This project provides practical experience with:
 
-Java
-Spring Boot
-Spring MVC
-Dependency Injection
-Maven
-Spring Data
-Neo4j
-Graph-based data modeling
-Thymeleaf
-Web application development
-Git
-GitHub
-Unit testing
-Project structure and software architecture
-🚧 Project Status
+- Java
+- Spring Boot
+- Spring MVC
+- Dependency Injection
+- Maven
+- Spring Data Neo4j
+- Neo4j
+- Graph database concepts
+- Graph-based data modeling
+- Thymeleaf
+- HTML
+- Web application development
+- Git
+- GitHub
+- Unit testing
+- Layered application architecture
 
-Status: Under Development 🚀
+---
 
-The project is being developed incrementally. Additional functionality such as volunteer management, NGO management, opportunity management, and advanced matching can be added as development progresses.
+## 🛠️ Development Tools
 
-👩‍💻 Author
-Thalanki Jahnavi
+The project can be developed using:
+
+- IntelliJ IDEA
+- Eclipse
+- Visual Studio Code
+
+Git and GitHub are used for source code management and version control.
+
+---
+
+## 👩‍💻 Author
+
+### Thalanki Jahnavi
 
 GitHub:
 
 https://github.com/Thalanki-Jahnavi
+
+---
+
+## 📄 License
+
+This project is developed for educational and development purposes.
