@@ -1,0 +1,9 @@
+spring:
+  neo4j:
+    uri: ${COGNODB_URI}
+    authentication:
+      username: ${COGNODB_USER}
+      password: ${COGNODB_PASSWORD}
+
+server:
+  port: 8080

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Volunteer Matcher</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e5631 0%, #27ae60 50%, #2ecc71 100%);
+            display: flex;
+            flex-direction: column;
+        }
+        nav {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        nav a:hover { opacity: 1; text-decoration: underline; }
+        .hero {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 60px 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            max-width: 500px;
+        }
+        .emoji { font-size: 56px; margin-bottom: 10px; }
+        h1 {
+            color: #1e5631;
+            margin: 10px 0;
+            font-size: 32px;
+        }
+        p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        a.button {
+            display: inline-block;
+            padding: 14px 28px;
+            background: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        a.button.secondary {
+            background: white;
+            color: #27ae60;
+            border: 2px solid #27ae60;
+        }
+        a.button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(39,174,96,0.35);
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="logo">🤝 VolunteerMatch</div>
+    <div>
+        <a th:href="@{/matches}">Find Matches</a>
+        <a th:href="@{/ngos}">Browse NGOs</a>
+    </div>
+</nav>
+<div class="hero">
+    <div class="container">
+        <div class="emoji">🤝</div>
+        <h1>Volunteer Matcher</h1>
+        <p>Connect volunteers with the NGOs that need their exact skills — powered by a graph database that understands real connections, not just rows.</p>
+        <div class="buttons">
+            <a class="button" th:href="@{/matches}">Find Matches</a>
+            <a class="button secondary" th:href="@{/ngos}">Browse NGOs</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

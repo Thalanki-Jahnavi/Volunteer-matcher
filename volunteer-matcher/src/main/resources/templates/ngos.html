@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Browse NGOs</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e5631 0%, #27ae60 50%, #2ecc71 100%);
+        }
+        nav {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        nav a.link {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        nav a.link:hover { opacity: 1; text-decoration: underline; }
+        .wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 20px 60px;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 25px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        @media (max-width: 650px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+        .ngo-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+        }
+        .ngo-card h3 {
+            margin: 0 0 6px 0;
+            color: #1e5631;
+            font-size: 18px;
+        }
+        .ngo-card .meta {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        .tag {
+            display: inline-block;
+            background: #eafaf1;
+            color: #27ae60;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .empty {
+            text-align: center;
+            color: white;
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            border-radius: 12px;
+        }
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<nav>
+    <a class="logo" th:href="@{/}">🤝 VolunteerMatch</a>
+    <div>
+        <a class="link" th:href="@{/matches}">Find Matches</a>
+    </div>
+</nav>
+<div class="wrapper">
+    <h1>Browse NGOs</h1>
+
+    <div th:if="${#lists.isEmpty(ngos)}" class="empty">
+        <p>No NGOs found.</p>
+    </div>
+
+    <div class="grid" th:unless="${#lists.isEmpty(ngos)}">
+        <div class="ngo-card" th:each="n : ${ngos}">
+            <h3 th:text="${n.name}"></h3>
+            <div class="meta">
+                📍 <span th:text="${n.location}"></span> ·
+                🏷️ <span th:text="${n.causeType}"></span>
+            </div>
+            <div>
+                <span class="tag" th:each="skill : ${n.neededSkills}" th:text="${skill}"></span>
+            </div>
+        </div>
+    </div>
+
+    <a class="back" th:href="@{/}">&larr; Back to home</a>
+</div>
+</body>
+</html>

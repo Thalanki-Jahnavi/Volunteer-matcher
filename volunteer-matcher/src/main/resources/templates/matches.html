@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Matches</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e5631 0%, #27ae60 50%, #2ecc71 100%);
+            padding: 0;
+        }
+        nav {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        nav a.link {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        nav a.link:hover { opacity: 1; text-decoration: underline; }
+        .wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px 20px 60px;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 25px;
+        }
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            margin-bottom: 25px;
+        }
+        label { color: #333; font-weight: 600; }
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: 1.5px solid #ddd;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: none;
+            background: #27ae60;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        button:hover { background: #219150; }
+        h2 { color: white; }
+        .match {
+            border-left: 5px solid #27ae60;
+            padding: 20px;
+            margin-bottom: 16px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+        .match h3 {
+            margin: 0 0 6px 0;
+            color: #1e5631;
+            font-size: 19px;
+        }
+        .match .meta {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .skills {
+            display: inline-block;
+            background: #eafaf1;
+            color: #27ae60;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 13px;
+            margin-right: 6px;
+            font-weight: 600;
+        }
+        .empty {
+            text-align: center;
+            color: white;
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            border-radius: 12px;
+        }
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<nav>
+    <a class="logo" th:href="@{/}">🤝 VolunteerMatch</a>
+    <div>
+        <a class="link" th:href="@{/ngos}">Browse NGOs</a>
+    </div>
+</nav>
+<div class="wrapper">
+    <h1>Find Matches</h1>
+
+    <div class="card">
+        <form th:action="@{/matches}" method="get">
+            <label for="volunteerId">Select a volunteer</label>
+            <select name="volunteerId" id="volunteerId">
+                <option value="">-- Choose a volunteer --</option>
+                <option th:each="v : ${volunteers}"
+                        th:value="${v.id}"
+                        th:text="${v.name} + ' (' + ${v.location} + ')'"
+                        th:selected="${v.id == selectedVolunteerId}">
+                </option>
+            </select>
+            <button type="submit">Find Matches</button>
+        </form>
+    </div>
+
+    <div th:if="${selectedVolunteerId != null}">
+        <div th:if="${#lists.isEmpty(results)}" class="empty">
+            <p>😕 No matching NGOs found for this volunteer yet.</p>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(results)}">
+            <h2>Matching NGOs</h2>
+            <div class="match" th:each="r : ${results}">
+                <h3 th:text="${r.ngoName}"></h3>
