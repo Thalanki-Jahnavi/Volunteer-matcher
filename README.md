@@ -71,31 +71,7 @@ An organization can provide:
 
 ---
 
-### 🎯 Skill-Based Matching
 
-One of the main objectives of Volunteer Matcher is to connect volunteers with opportunities that are relevant to their skills.
-
-For example:
-
-```text
-Volunteer Skills:
-Java
-Web Development
-Database
-
-        ↓
-
-Matching Opportunity:
-
-NGO requires:
-Java
-Web Development
-
-        ↓
-
-Suitable Match
-
-The matching process can use common skills and other relevant information to identify suitable opportunities.
 
 🔗 Relationship-Based Data Management
 
